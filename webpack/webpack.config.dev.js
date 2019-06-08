@@ -5,12 +5,14 @@ const webpack = require('webpack')
 const appSrc = path.resolve(__dirname, '../src')
 const appDist = path.resolve(__dirname, '../dist')
 const appPublic = path.resolve(__dirname, '../public')
-const appIndex = path.resolve(appSrc, 'index.js')
+const appIndex = path.resolve(appSrc, 'index.tsx')
 const appHtml = path.resolve(appPublic, 'index.html')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const { port } = require('./easy.config')
+const { CheckerPlugin } = require('awesome-typescript-loader')
 const { cssRules } = require('./base.css.config')
 const { resolve } = require('./resolve.allias')
+const { imgCssRules } = require('./img.config')
 
 module.exports = {
     mode: 'development',
@@ -31,16 +33,17 @@ module.exports = {
             filename: 'index.html'
         }),
         new FriendlyErrorsWebpackPlugin(),
+        new CheckerPlugin()
     ],
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
-                loader: 'babel-loader?cacheDirectory',
+                test: /\.(ts|tsx)$/,
+                loader: 'awesome-typescript-loader?cacheDirectory',
                 include: [appSrc],
                 exclude: /node_modules/
-            }
-        ].concat(cssRules),
+            },
+        ].concat(imgCssRules).concat(cssRules),
     },
     devServer: {
         contentBase: appPublic,

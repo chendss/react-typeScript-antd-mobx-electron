@@ -1,6 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Home from 'pages/home/home.jsx'
+import Home from 'pages/home/home.tsx'
 import GlobalModel from './store'
 import styles from './App.less'
 

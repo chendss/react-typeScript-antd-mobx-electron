@@ -13,6 +13,7 @@ const { resolve } = require('./resolve.allias')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { optimization } = require('./prod.optimization')
+const { imgCssRules } = require('./img.config')
 
 module.exports = {
     stats: {
@@ -59,7 +60,7 @@ module.exports = {
                 include: [appSrc],
                 exclude: /node_modules/
             }
-        ].concat(cssRules),
+        ].concat(imgCssRules).concat(cssRules),
     },
     optimization: optimization,
     resolve: resolve

@@ -10,6 +10,7 @@ module.exports = {
             '@': path.resolve(__dirname, '../src'),
             '~': path.resolve(__dirname, '../src/components'),
         },
-        modules: [path.resolve(__dirname, '../node_modules')] // 强制node_modules搜索模块
+        modules: [path.resolve(__dirname, '../node_modules')], // 强制node_modules搜索模块
+        extensions: [".jsx", ".js", ".json", ".ts", ".tsx"],
     }
 }
