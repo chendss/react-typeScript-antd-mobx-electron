@@ -5,10 +5,11 @@
     "main": "main.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev-pc": "electron .",
-        "init": "yarn&&webpack-dev-server --config webpack/webpack.config.dev.js --env development",
-        "build": "yarn&&webpack --config webpack/webpack.config.prod.js --env production",
-        "start": "concurrently \"npm run init\" \"npm run dev-pc\""
+        "electron-dev": "cross-env NODE_ENV=development electron main.js",
+        "electron-build": "cross-env NODE_ENV=production",
+        "react-dev": "yarn&&webpack-dev-server --config webpack/webpack.config.dev.js --env development",
+        "react-build": "yarn&&webpack --config webpack/webpack.config.prod.js --env production",
+        "start": "concurrently \"npm run electron-dev\" \"npm run react-dev\""
     },
     "repository": {
         "type": "git",

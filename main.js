@@ -1,9 +1,7 @@
 // 控制生命周期和创建本级浏览器窗口
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
-
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
+const { port } = require('./webpack/easy.config')
 
 class WindowControl {
     constructor() {
@@ -14,21 +12,30 @@ class WindowControl {
             show: false
         }
     }
-    static loadConfig () {
-        return 'http://localhost:9987/#/'
+    static loadConfig (NODE_ENV) {
+        let result = ''
+        if (NODE_ENV === 'development') {
+            result = `http://localhost:${port}/#/`
+        }
+        return result
+    }
+    static createWindow (config) {
+        const NODE_ENV = process.env.NODE_ENV
+        let address = WindowControl.loadConfig(NODE_ENV)
+        let mainWindow = new BrowserWindow(config)
+        if (NODE_ENV === 'development') {
+            mainWindow.loadURL(address)
+            mainWindow.webContents.openDevTools()
+        } else {
+            mainWindow.loadFile(address)
+        }
+        return mainWindow
     }
     close () {
         this.mainWindow = null
     }
     create () {
-        this.mainWindow = new BrowserWindow(this.config)
-        let address = WindowControl.loadConfig()
-        if (address.includes('http')) {
-            this.mainWindow.loadURL(address)
-        } else {
-            this.mainWindow.loadFile(address)
-        }
-        this.mainWindow.webContents.openDevTools()
+        this.mainWindow = WindowControl.createWindow(this.config)
         this.mainWindow.on('closed', () => {
             this.mainWindow = null
         })
