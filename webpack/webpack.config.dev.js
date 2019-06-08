@@ -16,8 +16,11 @@ const { imgCssRules } = require('./img.config')
 
 module.exports = {
     mode: 'development',
-    devtool: 'inline-source-map',
+    devtool: 'eval-source-map',
     entry: [
+        '@babel/plugin-syntax-typescript',
+        '@babel/plugin-syntax-decorators',
+        '@babel/plugin-syntax-jsx',
         'react-hot-loader/patch',
         appIndex
     ],
@@ -27,13 +30,13 @@ module.exports = {
         publicPath: '/'
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new HTMLWebpackPlugin({
             template: appHtml,
             filename: 'index.html'
         }),
         new FriendlyErrorsWebpackPlugin(),
-        new CheckerPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new CheckerPlugin(),
     ],
     module: {
         rules: [
@@ -47,6 +50,7 @@ module.exports = {
     },
     devServer: {
         contentBase: appPublic,
+
         hot: true,
         host: 'localhost',
         port: port,

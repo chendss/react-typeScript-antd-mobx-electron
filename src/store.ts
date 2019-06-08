@@ -8,7 +8,7 @@ import { observable, action } from 'mobx'
 
 export default class Store {
 
-    @observable username = '小明2'
+    @observable username = '小明3'
 
     /**
      * 修改 username 的方法
