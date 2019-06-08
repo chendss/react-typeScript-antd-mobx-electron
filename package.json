@@ -1,12 +1,14 @@
 {
-    "name": "toolkit-cyl",
+    "name": "react-electron",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "main.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "dev-pc": "electron .",
+        "init": "yarn&&webpack-dev-server --config webpack/webpack.config.dev.js --env development",
         "build": "yarn&&webpack --config webpack/webpack.config.prod.js --env production",
-        "start": "yarn&&webpack-dev-server --config webpack/webpack.config.dev.js --env development"
+        "start": "concurrently \"npm run init\" \"npm run dev-pc\""
     },
     "repository": {
         "type": "git",
@@ -49,7 +51,9 @@
         "babel-plugin-import": "^1.12.0",
         "babel-polyfill": "^6.26.0",
         "clean-webpack-plugin": "^3.0.0",
+        "concurrently": "^4.1.0",
         "css-loader": "^2.1.1",
+        "electron": "^5.0.3",
         "friendly-errors-webpack-plugin": "^1.7.0",
         "html-webpack-plugin": "^3.2.0",
         "less": "^3.9.0",
