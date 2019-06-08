@@ -5,9 +5,8 @@ const webpack = require('webpack')
 const appSrc = path.resolve(__dirname, '../src')
 const appDist = path.resolve(__dirname, '../dist')
 const appPublic = path.resolve(__dirname, '../public')
-const appIndex = path.resolve(appSrc, 'index.js')
+const appIndex = path.resolve(appSrc, 'index.tsx')
 const appHtml = path.resolve(appPublic, 'index.html')
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const { cssRules } = require('./prod.css.config')
 const { resolve } = require('./resolve.allias')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -26,8 +25,11 @@ module.exports = {
         hints: false
     },
     mode: 'production',
-    devtool: 'hidden-source-map',
+    devtool: 'eval-source-map',
     entry: [
+        '@babel/plugin-syntax-typescript',
+        '@babel/plugin-syntax-decorators',
+        '@babel/plugin-syntax-jsx',
         appIndex
     ],
     output: {
@@ -36,6 +38,12 @@ module.exports = {
         publicPath: './'
     },
     plugins: [
+        new webpack.DefinePlugin({
+            // 定义 NODE_ENV 环境变量为 production
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        }),
         new HTMLWebpackPlugin({
             template: appHtml,
             filename: 'index.html'
@@ -44,23 +52,21 @@ module.exports = {
             filename: 'public/styles/[name].[contenthash:8].css',
             chunkFilename: 'public/styles/[name].[contenthash:8].chunk.css'
         }),
-        new webpack.DefinePlugin({
-            // 定义 NODE_ENV 环境变量为 production
-            'process.env': {
-                NODE_ENV: JSON.stringify('production')
-            }
-        }),
         new CleanWebpackPlugin()
     ],
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
-                loader: 'babel-loader?cacheDirectory',
+                test: /\.(ts|tsx)$/,
+                loader: 'awesome-typescript-loader?cacheDirectory',
                 include: [appSrc],
                 exclude: /node_modules/
             }
         ].concat(imgCssRules).concat(cssRules),
+    },
+    externals: {
+        react: 'React',
+        'react-dom': 'ReactDOM'
     },
     optimization: optimization,
     resolve: resolve
