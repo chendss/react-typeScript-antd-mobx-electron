@@ -4,8 +4,13 @@
         "emitDecoratorMetadata": true,
         "outDir": "deploy",
         "sourceMap": true,
-        "module": "es2015",
-        "target": "ESNEXT",
+        "module": "commonjs",
+        "target": "es2015",
+        "lib": [
+            "es5",
+            "es6",
+            "dom"
+        ],
         "moduleResolution": "node",
         "types": [
             "node",
@@ -37,7 +42,8 @@
             "~/*": [
                 "./src/components/*"
             ],
-        }
+        },
+        "forceConsistentCasingInFileNames": true
     },
     "awesomeTypescriptLoaderOptions": {
         "transpileOnly": true

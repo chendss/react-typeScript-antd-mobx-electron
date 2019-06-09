@@ -7,8 +7,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "electron-dev": "cross-env NODE_ENV=development electron main.js",
         "electron-build": "cross-env NODE_ENV=production",
-        "react-dev": "yarn&&webpack-dev-server --config webpack/webpack.config.dev.js --env development",
-        "react-build": "yarn&&webpack --config webpack/webpack.config.prod.js --env production",
+        "react-dev": "yarn&&cross-env NODE_ENV=development webpack-dev-server --config webpack/webpack.config.dev.js",
+        "react-build": "yarn&&cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js",
         "start": "concurrently \"npm run electron-dev\" \"npm run react-dev\""
     },
     "repository": {
@@ -41,6 +41,7 @@
         "@babel/plugin-syntax-jsx": "^7.2.0",
         "@babel/plugin-syntax-typescript": "^7.3.3",
         "@babel/plugin-transform-runtime": "^7.4.4",
+        "@babel/polyfill": "^7.4.4",
         "@babel/preset-env": "^7.4.5",
         "@babel/preset-react": "^7.0.0",
         "@babel/runtime-corejs2": "^7.4.5",
@@ -72,6 +73,7 @@
         "react-hot-loader": "^4.9.0",
         "react-router-dom": "^5.0.1",
         "style-loader": "^0.23.1",
+        "terser-webpack-plugin": "^1.3.0",
         "uglifyjs-webpack-plugin": "^2.1.3",
         "webpack": "^4.33.0",
         "webpack-cli": "^3.3.3",

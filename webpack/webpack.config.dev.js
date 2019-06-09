@@ -42,7 +42,7 @@ module.exports = {
         rules: [
             {
                 test: /\.(ts|tsx)$/,
-                loader: 'awesome-typescript-loader?cacheDirectory',
+                loader: 'awesome-typescript-loader?cacheDirectory?cacheDirectory',
                 include: [appSrc],
                 exclude: /node_modules/
             },
@@ -50,7 +50,6 @@ module.exports = {
     },
     devServer: {
         contentBase: appPublic,
-
         hot: true,
         host: 'localhost',
         port: port,

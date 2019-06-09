@@ -1,6 +1,5 @@
 module.exports = (api) => {
-    api.cache(true);
-
+    api.cache(true)
     return {
         presets: [
             "@babel/preset-env",
@@ -11,12 +10,6 @@ module.exports = (api) => {
                 "@babel/plugin-proposal-decorators",
                 {
                     "legacy": true
-                }
-            ],
-            [
-                "@babel/plugin-transform-runtime",
-                {
-                    "corejs": 2
                 }
             ],
             [
@@ -57,6 +50,11 @@ module.exports = (api) => {
                 }
             ],
             "react-hot-loader/babel", // react热更新
-        ]
+        ].concat(process.env.NODE_ENV === 'development' ? [[
+            "@babel/plugin-transform-runtime",
+            {
+                "corejs": 2
+            }
+        ]] : [])
     }
 }
