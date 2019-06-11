@@ -1,4 +1,4 @@
-# react-typeScript-antd-mobix-electron
+# react-typeScript-antd-mobx-electron
 
 ## git
 
