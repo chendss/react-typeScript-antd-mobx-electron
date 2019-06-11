@@ -3,6 +3,12 @@ const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const { port } = require('./webpack/easy.config')
 
+const NODE_ENV = (function () {
+    let process = global.process || {}
+    process.env = process.env || {}
+    return process.env.NODE_ENV || 'production'
+})()
+
 class WindowControl {
     constructor() {
         this.mainWindow = null
@@ -12,16 +18,17 @@ class WindowControl {
             show: false
         }
     }
-    static loadConfig (NODE_ENV) {
+    static loadConfig () {
         let result = ''
         if (NODE_ENV === 'development') {
             result = `http://localhost:${port}/#/`
+        } else {
+            result = path.join(__dirname, './dist/index.html')
         }
         return result
     }
     static createWindow (config) {
-        const NODE_ENV = process.env.NODE_ENV
-        let address = WindowControl.loadConfig(NODE_ENV)
+        let address = WindowControl.loadConfig()
         let mainWindow = new BrowserWindow(config)
         if (NODE_ENV === 'development') {
             mainWindow.loadURL(address)
