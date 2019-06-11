@@ -10,8 +10,9 @@
         "electron-build": "cross-env NODE_ENV=production electron-packager ./ electron-react --out=build/ --platform=mas --overwrite --ignore=node_modules --prune --asar",
         "react-dev": "yarn&&cross-env NODE_ENV=development webpack-dev-server --config webpack/webpack.config.dev.js",
         "react-build": "yarn&&cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js",
-        "start": "concurrently \"npm run electron-dev\" \"npm run react-dev\"",
-        "build": "npm run react-build&&npm run electron-build"
+        "dev": "concurrently \"npm run electron-dev\" \"npm run react-dev\"",
+        "build": "npm run react-build&&npm run electron-build",
+        "init": "yarn self-update&&yarn&&yarn upgrade"
     },
     "repository": {
         "type": "git",
