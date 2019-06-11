@@ -70,5 +70,9 @@ module.exports = {
             }
         }
     },
+    externals: {
+        react: 'react',
+        'react-dom': '@hot-loader/react-dom'
+    },
     resolve: resolve
 }
