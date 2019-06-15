@@ -6,7 +6,7 @@
 git remote add origin url
 
 再添加一个远程仓库
-git remote set-url --add origin url
+git remote set-url --add origin https://github.com/chendss/react-typeScript-antd-mobx-electron.git
 
 一次提交到所有远程仓库
 git push --all
