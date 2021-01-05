@@ -27,7 +27,7 @@
     "homepage": "https://github.com/chendss/react-typeScript-antd-mobix-electron#readme",
     "dependencies": {
         "antd": "^3.19.2",
-        "axios": "^0.19.0",
+        "axios": "^0.21.1",
         "json5": "^2.1.0",
         "lodash": "^4.17.11",
         "mobx": "^5.10.0",
